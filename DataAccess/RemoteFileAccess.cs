@@ -7,7 +7,6 @@ namespace DataAccess
     public class RemoteFileAccess
     {
         private SftpClient? _sftpClient;
-        private SshClient? _sshClient;
         private readonly ILogger _logger;
         private string? _username;
 
@@ -30,6 +29,7 @@ namespace DataAccess
             );
 
             _sftpClient = new SftpClient(connectionInfo);
+            _sftpClient.Connect();
 
             _logger.Debug("New client constructed");
             _logger.Information("Authorized");
@@ -103,7 +103,7 @@ namespace DataAccess
                 return;
             }
 
-            if(_username is not string username)
+            if (_username is not string username)
             {
                 _logger.Error("Username invalid");
                 return;
