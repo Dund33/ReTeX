@@ -2,7 +2,7 @@
 using Renci.SshNet.Common;
 using Serilog;
 
-namespace DataAccess
+namespace ReTeX
 {
     public class RemoteFileAccess
     {

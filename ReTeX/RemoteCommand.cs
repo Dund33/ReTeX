@@ -1,8 +1,9 @@
-﻿using Renci.SshNet;
+﻿using DataAccess;
+using Renci.SshNet;
 using Serilog;
 using System.Text;
 
-namespace DataAccess
+namespace ReTeX
 {
     public class RemoteCommand
     {

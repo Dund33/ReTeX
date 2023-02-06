@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReTeX", "ReTeX\ReTeX.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{A6CF4FCD-DF1E-41AF-9B1F-BBB100D38838}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReTeX-Server", "ReTeX-Server\ReTeX-Server.csproj", "{0F1C40A2-67FF-44CB-AD8A-3AC35B0F1336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{A6CF4FCD-DF1E-41AF-9B1F-BBB100D38838}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6CF4FCD-DF1E-41AF-9B1F-BBB100D38838}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6CF4FCD-DF1E-41AF-9B1F-BBB100D38838}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F1C40A2-67FF-44CB-AD8A-3AC35B0F1336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F1C40A2-67FF-44CB-AD8A-3AC35B0F1336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F1C40A2-67FF-44CB-AD8A-3AC35B0F1336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F1C40A2-67FF-44CB-AD8A-3AC35B0F1336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
