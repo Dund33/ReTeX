@@ -1,8 +1,7 @@
 ﻿using Renci.SshNet;
-using Serilog;
 using System.Text;
 
-namespace ReTeX
+namespace DataAccess
 {
     public class RemoteCommand
     {
@@ -14,16 +13,19 @@ namespace ReTeX
             _logger = logger;
         }
 
-        public CommandResult ExecuteCommand(string command)
+        public async Task<CommandResult> ExecuteCommand(CommandType command)
         {
             if (_sshClient is not SshClient client)
             {
                 _logger.Error("SSH Client not initialized");
-                return
-                    new CommandResult(false, null);
+                return await Task.FromResult(
+                    new CommandResult(false, null)
+                );
             }
 
-            var commandResult = client.RunCommand(command);
+            var commandResult = await Task.Run(() =>
+                client.RunCommand(((int)command).ToString())
+            );
 
             if (commandResult.ExitStatus != 0)
             {
@@ -32,7 +34,9 @@ namespace ReTeX
 
                 var byteResult = Encoding.UTF8.GetBytes(commandResult.Error);
 
-                return new CommandResult(false, byteResult);
+                return await Task.FromResult(
+                    new CommandResult(false, byteResult)
+                );
             }
 
             var resultBytes = Convert.FromBase64String(commandResult.Result);
