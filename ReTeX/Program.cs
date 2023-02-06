@@ -7,6 +7,14 @@ var logger = new LoggerConfiguration()
     .Console()
     .CreateLogger();
 
-var processor = new ReTeXProcessor(args[1], logger);
-processor.Init(args[2], args[3]);
-processor.Process(args[4]);
+
+var host = args[0];
+var username = args[1];
+var password = args[2];
+var dirname = args[3];
+var filename = args[4];
+
+logger.Information($"Running for user: {username} and directory {dirname} on {host}");
+var processor = new ReTeXProcessor(host, logger);
+processor.Init(username, password);
+processor.Process(dirname, filename);

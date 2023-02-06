@@ -29,15 +29,12 @@ namespace ReTeX
             {
                 _logger.Error("Command execution error");
                 _logger.Error(commandResult.Error);
-
                 var byteResult = Encoding.UTF8.GetBytes(commandResult.Error);
-
                 return new CommandResult(false, byteResult);
             }
 
-            var resultBytes = Convert.FromBase64String(commandResult.Result);
-
-            return new CommandResult(true, resultBytes);
+            var result = Encoding.UTF8.GetBytes(commandResult.Result);
+            return new CommandResult(true, result);
         }
 
         public bool Authorize(string host, string username, string password)

@@ -37,6 +37,38 @@ namespace ReTeX
             return true;
         }
 
+        public MemoryStream? GetFile(string dirPath, string filename)
+        {
+            if (_sftpClient is not SftpClient client)
+            {
+                _logger.Error("Client connection not initialized");
+                return null;
+            }
+
+            var filePath = dirPath + '/' + filename;
+            Console.WriteLine(filePath);
+            var stream = new MemoryStream();
+
+            try
+            {
+                client.DownloadFile(filePath, stream);
+            }
+            catch (SftpPermissionDeniedException e)
+            {
+                _logger.Error(e, "Upload permission denied");
+            }
+            catch (SshConnectionException e)
+            {
+                _logger.Error(e, "Connection terminated");
+            }
+            catch (Exception e)
+            {
+                _logger.Error(e, "General error");
+            }
+
+            return stream;
+        }
+
         public void Put(Stream dataStream, string filename)
         {
             if (_sftpClient is not SftpClient client)
@@ -95,7 +127,7 @@ namespace ReTeX
             }
         }
 
-        public void SyncDir(string path, string targetDir)
+        public void SyncDir(string sourceDir, string targetDir)
         {
             if (_sftpClient is not SftpClient client)
             {
@@ -103,17 +135,21 @@ namespace ReTeX
                 return;
             }
 
-            if (_username is not string username)
+            if (!client.Exists(targetDir))
+            {
+                _logger.Information("Target directory does not exist, creating");
+                client.CreateDirectory(targetDir);
+            }
+
+            if (_username is not string)
             {
                 _logger.Error("Username invalid");
                 return;
             }
 
-            var targetPath = Path.Combine(username, targetDir);
-
             try
             {
-                client.SynchronizeDirectories(path, targetPath, "*");
+                client.SynchronizeDirectories(sourceDir, targetDir, "*");
             }
             catch (SftpPermissionDeniedException e)
             {
